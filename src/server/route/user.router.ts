@@ -1,9 +1,9 @@
+import { baseUrl } from './../../constants';
 import { Prisma } from "@prisma/client";
 import { createUserInput, requestOtpInput } from "../../schema/user.schema";
 import { createRouter } from "../createRouter";
 import { TRPCError } from "@trpc/server";
 import sendLoginEmail from "../../utils/mailer";
-import { url } from "../../constants";
 import { encode } from "../../utils/base64";
 
 export const userRouter = createRouter()
@@ -81,7 +81,7 @@ export const userRouter = createRouter()
 
         sendLoginEmail({
             token: encode(`${token.id}:${user.email}`),
-            url,
+            url: baseUrl,
             email: user.email
         })
 
